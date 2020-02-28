@@ -1,0 +1,16 @@
+{
+	"name": "Repository",
+	"servePort": 8000,
+	"tree": {
+		"$className": "DataModel",
+		"ReplicatedStorage": {
+			"$className": "ReplicatedStorage",
+			"Module3D": {
+                "$path": "Module3D.lua"
+            },
+            "Module3D.nexusspec": {
+                "$path": "Module3D.nexusspec.lua"
+            }
+		}
+	}
+}
