@@ -100,6 +100,7 @@ function Module3D.new(ModelOrPart: BasePart | Model): Module3D
     local Camera = Instance.new("Camera")
     Camera.Parent = ViewportFrame
     ViewportFrame.CurrentCamera = Camera
+	self.Camera = Camera
     
     --Set up the model.
     local BasePrimaryPart = Model.PrimaryPart
@@ -173,6 +174,7 @@ end
 Sets the frame being active.
 --]]
 function Module3D:SetActive(Active: boolean): ()
+    warn("Module3D:SetActive(Active) is deprecated. Use Module3D.Visible instead.")
     self.AdornFrame.Visible = Active
 end
 
@@ -180,6 +182,7 @@ end
 Reutrns if the frame is active.
 --]]
 function Module3D:GetActive(): boolean
+    warn("Module3D:GetActive() is deprecated. Use Module3D.Visible instead.")
     return self.AdornFrame.Visible
 end
 
@@ -225,6 +228,7 @@ end
 Destroys the frame and unparents the model.
 --]]
 function Module3D:End(): ()
+    warn("Module3D:End() is deprecated. Use Module3D:Destroy() instead.")
     self:Destroy()
 end
 
