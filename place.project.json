@@ -7,8 +7,8 @@
 			"Module3D": {
                 "$path": "."
             },
-            "Module3D.nexusspec": {
-                "$path": "Module3D.nexusspec.lua"
+            "Module3D.spec": {
+                "$path": "Module3D.spec.lua"
             }
 		}
 	}

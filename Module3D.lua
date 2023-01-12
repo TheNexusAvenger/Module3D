@@ -100,7 +100,6 @@ function Module3D.new(ModelOrPart: BasePart | Model): Module3D
     local Camera = Instance.new("Camera")
     Camera.Parent = ViewportFrame
     ViewportFrame.CurrentCamera = Camera
-	self.Camera = Camera
     
     --Set up the model.
     local BasePrimaryPart = Model.PrimaryPart
@@ -121,6 +120,7 @@ function Module3D.new(ModelOrPart: BasePart | Model): Module3D
     Metatable.__index = function(self, Index: string): any
         --Return the camera (deprecated property).
         if Index == "Camera" then
+            warn("Module3D.Camera is deprecated. Use Module3D.CurrentCamera instead.")
             return ViewportFrame.CurrentCamera
         end
         
