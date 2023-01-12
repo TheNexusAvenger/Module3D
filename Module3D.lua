@@ -5,7 +5,7 @@ GitHub: https://github.com/TheNexusAvenger/Module3D
 
 
 
-Module3D.new(Model)
+Module3D.new(Model): Module3D
     Creates a Model3D object.
 Module3D:Attach3D(Frame: Frame, Model: BasePart | Model): Module3D
     Attaches a model or part to a frame. Returns a Model3D object.
