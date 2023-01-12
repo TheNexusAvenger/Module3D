@@ -16,7 +16,7 @@ Model3D.CurrentCamera.FieldOfView = 5
 Model3D.Visible = true
 
 game:GetService("RunService").RenderStepped:Connect(function()
-	Model3D:SetCFrame(CFrame.Angles(0,tick() % (math.pi * 2),0) * CFrame.Angles(math.rad(-10),0,0))
+    Model3D:SetCFrame(CFrame.Angles(0, tick() % (math.pi * 2), 0) * CFrame.Angles(math.rad(-10), 0, 0))
 end)
 ```
 
