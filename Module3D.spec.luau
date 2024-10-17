@@ -23,7 +23,7 @@ return function()
             expect(TestPart.Position).to.equal(Vector3.new(0, 10000, 0))
             expect(TestModule3D.Object3D).to.equal(TestPart.Parent)
             expect(TestModule3D.BackgroundTransparency).to.equal(1)
-            expect(TestModule3D.CurrentCamera.CFrame).to.equal(CFrame.new(0, 10000, 0) * CFrame.new(0, 0, 2 + (4 / math.tan(math.rad(70)))))
+            expect((TestModule3D.CurrentCamera :: Camera).CFrame).to.equal(CFrame.new(0, 10000, 0) * CFrame.new(0, 0, 2 + (4 / math.tan(math.rad(70)))))
         end)
 
         it("should pass values.", function()
@@ -41,12 +41,12 @@ return function()
         it("should update the CFrame.", function()
             --Update the properties of the part and the camera.
             TestPart.CFrame = TestPart.CFrame * CFrame.new(0, 2, 0)
-            TestPart.Size = Vector3.new(6, 2, 3)
-            TestModule3D.CurrentCamera.FieldOfView = 60
+            TestPart.Size = Vector3.new(6, 2, 3);
+            (TestModule3D.CurrentCamera :: Camera).FieldOfView = 60
             
             --Update the CFrame and assert it is correct.
             TestModule3D:Update()
-            expect(TestModule3D.CurrentCamera.CFrame).to.equal(CFrame.new(0, 10002, 0) * CFrame.new(0, 0, 3 + (6 / math.tan(math.rad(60)))))
+            expect((TestModule3D.CurrentCamera :: Camera).CFrame).to.equal(CFrame.new(0, 10002, 0) * CFrame.new(0, 0, 3 + (6 / math.tan(math.rad(60)))))
         end)
 
         it("should set the frame as active (deprecated).", function()
@@ -64,13 +64,13 @@ return function()
         it("should set the CFrame offset.", function()
             TestModule3D:SetCFrame(CFrame.new(1, 2, 3))
             expect(TestModule3D:GetCFrame()).to.equal(CFrame.new(1, 2, 3))
-            expect(TestModule3D.CurrentCamera.CFrame).to.equal(CFrame.new(1, 10002, 3) * CFrame.new(0, 0, 2 + (4 / math.tan(math.rad(70)))))
+            expect((TestModule3D.CurrentCamera :: Camera).CFrame).to.equal(CFrame.new(1, 10002, 3) * CFrame.new(0, 0, 2 + (4 / math.tan(math.rad(70)))))
         end)
 
         it("should set multipliers.", function()
             TestModule3D:SetDepthMultiplier(2)
             expect(TestModule3D:GetDepthMultiplier()).to.equal(2)
-            expect(TestModule3D.CurrentCamera.CFrame).to.equal(CFrame.new(0, 10000, 0) * CFrame.new(0, 0, (2 + (4 / math.tan(math.rad(70))) * 2)))
+            expect((TestModule3D.CurrentCamera :: Camera).CFrame).to.equal(CFrame.new(0, 10000, 0) * CFrame.new(0, 0, (2 + (4 / math.tan(math.rad(70))) * 2)))
         end)
 
         it("should destroy the frame.", function()
@@ -116,7 +116,7 @@ return function()
             expect(Part2.Position).to.equal(Vector3.new(2, 10000 + 2, 2))
             expect(TestModule3D.Object3D).to.equal(Model)
             expect(TestModule3D.BackgroundTransparency).to.equal(1)
-            expect(TestModule3D.CurrentCamera.CFrame).to.equal(CFrame.new(1, 10001, 1) * CFrame.new(0, 0, 2 + (4 / math.tan(math.rad(70)))))
+            expect((TestModule3D.CurrentCamera :: Camera).CFrame).to.equal(CFrame.new(1, 10001, 1) * CFrame.new(0, 0, 2 + (4 / math.tan(math.rad(70)))))
             TestModule3D:Destroy()
         end)
     end)

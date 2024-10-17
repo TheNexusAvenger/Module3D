@@ -8,7 +8,7 @@
                 "$path": "."
             },
             "Module3D.spec": {
-                "$path": "Module3D.spec.lua"
+                "$path": "Module3D.spec.luau"
             }
 		}
 	}

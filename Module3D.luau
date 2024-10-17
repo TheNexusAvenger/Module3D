@@ -52,21 +52,12 @@ local Module3D = {}
 Module3D.__index = Module3D
 
 export type Module3D = {
-    new: (ModelOrPart: BasePart | Model) -> Module3D,
-
+    CFrameOffset: CFrame,
+    DepthMultiplier: number,
     Object3D: Model,
     AdornFrame: ViewportFrame,
     Camera: Camera,
-    Update: (self: Module3D) -> (),
-    SetActive: (self: Module3D, Active: boolean) -> (),
-    GetActive: (self: Module3D) -> (boolean),
-    SetCFrame: (self: Module3D, NewCFrame: CFrame) -> (),
-    GetCFrame: (self: Module3D) -> CFrame,
-    SetDepthMultiplier: (self: Module3D, Multiplier: number) -> (),
-    GetDepthMultiplier: (self: Module3D) -> (number),
-    Destroy: (self: Module3D) -> (),
-    End: (self: Module3D) -> (),
-} & ViewportFrame
+} & typeof(setmetatable({}, Module3D)) & ViewportFrame
 
 
 
@@ -145,35 +136,35 @@ function Module3D.new(ModelOrPart: BasePart | Model): Module3D
     end
     
     self:UpdateCFrame()
-    return (self :: any) :: Module3D
+    return self :: Module3D
 end
 
 --[[
 Updates the camera's CFrame.
 --]]
-function Module3D:UpdateCFrame()
+function Module3D.UpdateCFrame(self: Module3D): ()
     local BoundingCFrame,BoundingSize = self.Object3D:GetBoundingBox()
     local ModelCenter = BoundingCFrame.Position
     
     --Determine the distance back.
     local MaxSize = math.max(BoundingSize.X, BoundingSize.Y, BoundingSize.Z)
-    local DistanceBack = ((MaxSize / math.tan(math.rad(self.CurrentCamera.FieldOfView)))) * self.DepthMultiplier
+    local DistanceBack = ((MaxSize / math.tan(math.rad(self.Camera.FieldOfView)))) * self.DepthMultiplier
     local Center = CFrame.new(ModelCenter)
-    self.CurrentCamera.CFrame = Center * self.CFrameOffset * CFrame.new(0, 0, (MaxSize / 2) + DistanceBack)
-    self.CurrentCamera.Focus = Center
+    self.Camera.CFrame = Center * self.CFrameOffset * CFrame.new(0, 0, (MaxSize / 2) + DistanceBack)
+    self.Camera.Focus = Center
 end
 
 --[[
 Force updates the camera CFrame.
 --]]
-function Module3D:Update(): ()
+function Module3D.Update(self: Module3D): ()
     self:UpdateCFrame()
 end
 
 --[[
 Sets the frame being active.
 --]]
-function Module3D:SetActive(Active: boolean): ()
+function Module3D.SetActive(self: Module3D, Active: boolean): ()
     warn("Module3D:SetActive(Active) is deprecated. Use Module3D.Visible instead.")
     self.AdornFrame.Visible = Active
 end
@@ -181,7 +172,7 @@ end
 --[[
 Reutrns if the frame is active.
 --]]
-function Module3D:GetActive(): boolean
+function Module3D.GetActive(self: Module3D): boolean
     warn("Module3D:GetActive() is deprecated. Use Module3D.Visible instead.")
     return self.AdornFrame.Visible
 end
@@ -189,7 +180,7 @@ end
 --[[
 Sets the CFrame offset.
 --]]
-function Module3D:SetCFrame(NewCFrame: CFrame): ()
+function Module3D.SetCFrame(self: Module3D, NewCFrame: CFrame): ()
     self.CFrameOffset = NewCFrame
     self:UpdateCFrame()
 end
@@ -197,14 +188,14 @@ end
 --[[
 Returns the CFrame offset.
 --]]
-function Module3D:GetCFrame(): CFrame
+function Module3D.GetCFrame(self: Module3D): CFrame
     return self.CFrameOffset
 end
 
 --[[
 Sets the multiplier for how far back the camera should go.
 --]]
-function Module3D:SetDepthMultiplier(Multiplier: number): ()
+function Module3D.SetDepthMultiplier(self: Module3D, Multiplier: number): ()
     self.DepthMultiplier = Multiplier
     self:UpdateCFrame()
 end
@@ -212,14 +203,14 @@ end
 --[[
 Returns the depth multiplier
 --]]
-function Module3D:GetDepthMultiplier(): number
+function Module3D.GetDepthMultiplier(self: Module3D): number
     return self.DepthMultiplier
 end
 
 --[[
 Destroys the frame and unparents the model.
 --]]
-function Module3D:Destroy(): ()
+function Module3D.Destroy(self: Module3D): ()
     self.AdornFrame:Destroy()
     self.Object3D:Destroy()
 end
@@ -227,7 +218,7 @@ end
 --[[
 Destroys the frame and unparents the model.
 --]]
-function Module3D:End(): ()
+function Module3D.End(self: Module3D): ()
     warn("Module3D:End() is deprecated. Use Module3D:Destroy() instead.")
     self:Destroy()
 end
@@ -236,7 +227,7 @@ end
 Adorns a 3D model to a frame.
 Returns a Model3D object.
 --]]
-function Module3D:Attach3D(Frame: Frame, Model: BasePart | Model): Module3D
+function Module3D.Attach3D(self: typeof(Module3D), Frame: Frame, Model: BasePart | Model): Module3D
     --Create the Model3D object.
     local Model3D = Module3D.new(Model)
     Model3D.AnchorPoint = Vector2.new(0.5, 0.5)
