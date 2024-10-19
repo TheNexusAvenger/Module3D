@@ -1,10 +1,14 @@
 # Module3D
-Module3D is a helper module for adorning 3D objects to 2D frames
-in ScreenGuis, BillboardGuis, or SurfaceGuis. This version uses
-ViewportFrames to make development easier with more features and
-less overhead on the developer's part.
+
+<p align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Roblox_Studio_Logo_2022.png" width="50" height="50"><a href="https://devforum.roblox.com/t/module3d-v61-viewportframe-implementation/207383/2">Roblox DevForums Link</a></p>
+
+**Module3D is a helper module for adorning 3D objects to 2D frames**
+in `ScreenGuis`, `BillboardGuis`, or `SurfaceGuis`. **This version uses**
+`ViewportFrames` **to make development easier with more features and
+less overhead on the developer's part.**
 
 ## Code Example
+
 ```lua
 local Frame = script.Parent:WaitForChild("Frame")
 local Module3D = require(game.ReplicatedStorage:WaitForChild("Module3D"))
@@ -21,6 +25,7 @@ end)
 ```
 
 ## Roblox Model
+
 This model can be found in the Roblox library.
 https://www.roblox.com/library/2615023691/Module3D-V6
 
