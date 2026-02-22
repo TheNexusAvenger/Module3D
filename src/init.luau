@@ -136,7 +136,7 @@ function Module3D.new(ModelOrPart: BasePart | Model): Module3D
     end
     
     self:UpdateCFrame()
-    return self :: Module3D
+    return (self :: any) :: Module3D
 end
 
 --[[
@@ -148,10 +148,11 @@ function Module3D.UpdateCFrame(self: Module3D): ()
     
     --Determine the distance back.
     local MaxSize = math.max(BoundingSize.X, BoundingSize.Y, BoundingSize.Z)
-    local DistanceBack = ((MaxSize / math.tan(math.rad(self.CurrentCamera.FieldOfView)))) * self.DepthMultiplier
+    local CurrentCamera = self.CurrentCamera :: Camera
+    local DistanceBack = ((MaxSize / math.tan(math.rad(CurrentCamera.FieldOfView)))) * self.DepthMultiplier
     local Center = CFrame.new(ModelCenter)
-    self.CurrentCamera.CFrame = Center * self.CFrameOffset * CFrame.new(0, 0, (MaxSize / 2) + DistanceBack)
-    self.CurrentCamera.Focus = Center
+    CurrentCamera.CFrame = Center * self.CFrameOffset * CFrame.new(0, 0, (MaxSize / 2) + DistanceBack)
+    CurrentCamera.Focus = Center
 end
 
 --[[
