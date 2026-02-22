@@ -17,7 +17,7 @@ Model3D object (extends ViewportFrame):
     Model3D.Object3D: Model - the model for the bounding box. If the input model was a model, it will be the same as the input.
     Model3D.AdornFrame: ViewportCFrame - the frame the model is adorned to.
     Model3D.Camera: Camera - the camera used by the viewport frame.
-        [Derecated; use Model3D.CurrentCamera]
+        [Deprecated; use Model3D.CurrentCamera]
     
     Model3D:Update(): ()
         Force updates the camera CFrame.
@@ -148,10 +148,10 @@ function Module3D.UpdateCFrame(self: Module3D): ()
     
     --Determine the distance back.
     local MaxSize = math.max(BoundingSize.X, BoundingSize.Y, BoundingSize.Z)
-    local DistanceBack = ((MaxSize / math.tan(math.rad(self.Camera.FieldOfView)))) * self.DepthMultiplier
+    local DistanceBack = ((MaxSize / math.tan(math.rad(self.CurrentCamera.FieldOfView)))) * self.DepthMultiplier
     local Center = CFrame.new(ModelCenter)
-    self.Camera.CFrame = Center * self.CFrameOffset * CFrame.new(0, 0, (MaxSize / 2) + DistanceBack)
-    self.Camera.Focus = Center
+    self.CurrentCamera.CFrame = Center * self.CFrameOffset * CFrame.new(0, 0, (MaxSize / 2) + DistanceBack)
+    self.CurrentCamera.Focus = Center
 end
 
 --[[
